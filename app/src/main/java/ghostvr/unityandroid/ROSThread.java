@@ -1,4 +1,4 @@
-package ghostvr.unityandroidplugin;
+package ghostvr.unityandroid;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -13,7 +13,7 @@ import java.net.Socket;
  * Created by Divyanshu on 6/9/17.
  */
 
-public class ROSThreadPlugin implements Runnable {
+public class ROSThread implements Runnable {
     private ServerSocket serverSocket;
     private boolean flag = true;
     private float[] dataArray;
@@ -25,7 +25,8 @@ public class ROSThreadPlugin implements Runnable {
         dataArray = new float[7];
 
         try {
-            serverSocket = new ServerSocket(8888);
+            serverSocket = new ServerSocket(4444);
+            Log.d("Socket", "Socket created");
 
             while (flag)
                 getClientData();
@@ -50,6 +51,7 @@ public class ROSThreadPlugin implements Runnable {
 
             } else {
                 String words[] = message.split(",");
+
                 index = words[0];
 
                 for (int i = 1; i < words.length; ++i){
