@@ -10,9 +10,13 @@ public class OverrideActivity extends UnityPlayerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rotationSensorPlugin = new RotationSensorPlugin(this);
+//        rotationSensorPlugin = new RotationSensorPlugin(this);
+
+        ROSThreadPlugin rosThreadPlugin = new ROSThreadPlugin();
+        new Thread(rosThreadPlugin).start();
     }
 
+    /*
     @Override
     protected void onResume() {
         super.onResume();
@@ -30,4 +34,5 @@ public class OverrideActivity extends UnityPlayerActivity {
             rotationSensorPlugin.unregisterListener();
         }
     }
+    */
 }
