@@ -5,14 +5,16 @@ import com.unity3d.player.UnityPlayerActivity;
 
 public class OverrideActivity extends UnityPlayerActivity {
 
-    RotationSensorPlugin rotationSensorPlugin;
+    ROSThreadPlugin rosThreadPlugin;
+
+//    RotationSensorPlugin rotationSensorPlugin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 //        rotationSensorPlugin = new RotationSensorPlugin(this);
 
-        ROSThreadPlugin rosThreadPlugin = new ROSThreadPlugin();
+        rosThreadPlugin = new ROSThreadPlugin();
         new Thread(rosThreadPlugin).start();
     }
 

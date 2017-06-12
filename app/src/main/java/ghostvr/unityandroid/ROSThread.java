@@ -17,16 +17,16 @@ public class ROSThread implements Runnable {
     private ServerSocket serverSocket;
     private boolean flag = true;
     private float[] dataArray;
+    private float[] tempDataArray;
     String index;
 
     @Override
     public void run() {
-
         dataArray = new float[7];
+        tempDataArray = new float[7];
 
         try {
             serverSocket = new ServerSocket(4444);
-            Log.d("Socket", "Socket created");
 
             while (flag)
                 getClientData();
@@ -51,12 +51,19 @@ public class ROSThread implements Runnable {
 
             } else {
                 String words[] = message.split(",");
-
                 index = words[0];
 
-                for (int i = 1; i < words.length; ++i){
-                    dataArray[i-1] = Float.parseFloat(words[i]);
+                try {
+                    for (int i = 1; i < words.length; ++i){
+                        tempDataArray[i-1] = Float.parseFloat(words[i]);
+                    }
+
+                    System.arraycopy(tempDataArray, 0, dataArray, 0, dataArray.length);
+
+                } catch (Exception e){
+                    Log.d("Input Exception", e.toString());
                 }
+
 
                 Log.d("Input", message + "\nTime elapsed: " + SystemClock.elapsedRealtimeNanos());
             }
