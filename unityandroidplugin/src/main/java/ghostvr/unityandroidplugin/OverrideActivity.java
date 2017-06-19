@@ -5,25 +5,30 @@ import com.unity3d.player.UnityPlayerActivity;
 
 public class OverrideActivity extends UnityPlayerActivity {
 
-    ROSThreadPlugin rosThreadPlugin;
+//    ROSThreadPlugin rosThreadPlugin;
 
-//    RotationSensorPlugin rotationSensorPlugin;
+    RotationSensorPlugin rotationSensorPlugin;
+
+    LaunchAppPlugin launchAppPlugin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        rotationSensorPlugin = new RotationSensorPlugin(this);
+        rotationSensorPlugin = new RotationSensorPlugin(this);
 
-        rosThreadPlugin = new ROSThreadPlugin();
-        new Thread(rosThreadPlugin).start();
+//        rosThreadPlugin = new ROSThreadPlugin();
+//        new Thread(rosThreadPlugin).start();
+
+        launchAppPlugin = new LaunchAppPlugin(this);
     }
 
-    /*
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (rotationSensorPlugin.isRotationSensorEnabled() && rotationSensorPlugin.getRotationSensor() != null){
+        if (rotationSensorPlugin.getRotationSensor() != null){
             rotationSensorPlugin.registerListener();
         }
     }
@@ -36,5 +41,4 @@ public class OverrideActivity extends UnityPlayerActivity {
             rotationSensorPlugin.unregisterListener();
         }
     }
-    */
 }
