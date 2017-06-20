@@ -24,8 +24,6 @@ public class RotationSensorPlugin implements SensorEventListener {
     private float[] quatMatrix;
 
 
-    private boolean isRotationSensorEnabled = false;
-
     public RotationSensorPlugin(UnityPlayerActivity unityPlayerActivity) {
         upa = unityPlayerActivity;
         sensorManager = (SensorManager) upa.getSystemService(Context.SENSOR_SERVICE);
@@ -34,9 +32,7 @@ public class RotationSensorPlugin implements SensorEventListener {
         rotationMatrix = new  float[16];
         orientationMatrix = new float[3];
         quatMatrix = new float[4];
-        isRotationSensorEnabled = true;
     }
-
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -51,19 +47,12 @@ public class RotationSensorPlugin implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-
     public void registerListener() {
         sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_GAME);
-        isRotationSensorEnabled = true;
     }
 
     public void unregisterListener() {
         sensorManager.unregisterListener(this);
-        isRotationSensorEnabled = false;
-    }
-
-    public boolean isRotationSensorEnabled() {
-        return isRotationSensorEnabled;
     }
 
     public Sensor getRotationSensor() {

@@ -5,30 +5,37 @@ import com.unity3d.player.UnityPlayerActivity;
 
 public class OverrideActivity extends UnityPlayerActivity {
 
-//    ROSThreadPlugin rosThreadPlugin;
-
     RotationSensorPlugin rotationSensorPlugin;
-
     LaunchAppPlugin launchAppPlugin;
+    ROSThreadPlugin rosThreadPlugin;
+
+    boolean isRotationSensorEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rotationSensorPlugin = new RotationSensorPlugin(this);
-
-//        rosThreadPlugin = new ROSThreadPlugin();
-//        new Thread(rosThreadPlugin).start();
-
-        launchAppPlugin = new LaunchAppPlugin(this);
     }
 
+    public void enableRotationSensorPlugin(){
+        rotationSensorPlugin = new RotationSensorPlugin(this);
+        isRotationSensorEnabled = true;
+    }
+
+    public void enableRosThreadPlugin(){
+        rosThreadPlugin = new ROSThreadPlugin();
+        new Thread(rosThreadPlugin).start();
+    }
+
+    public void enableLaunchAppPlugin(){
+        launchAppPlugin = new LaunchAppPlugin(this);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (rotationSensorPlugin.getRotationSensor() != null){
+        if (isRotationSensorEnabled){
             rotationSensorPlugin.registerListener();
         }
     }
@@ -37,7 +44,7 @@ public class OverrideActivity extends UnityPlayerActivity {
     protected void onPause() {
         super.onPause();
 
-        if (rotationSensorPlugin.getRotationSensor() != null){
+        if (isRotationSensorEnabled){
             rotationSensorPlugin.unregisterListener();
         }
     }

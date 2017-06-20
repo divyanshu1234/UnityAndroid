@@ -2,9 +2,12 @@ package ghostvr.unityandroidplugin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Divyanshu on 6/19/17.
@@ -13,28 +16,36 @@ import java.util.Map;
 public class LaunchAppPlugin {
 
     private Context context;
-
-    private static Map<String, String> indexAppNameHashMap;
-
-    static {
-        indexAppNameHashMap = new HashMap<>();
-        indexAppNameHashMap.put("0", "com.android.chrome");
-        indexAppNameHashMap.put("1", "com.google.android.gm");
-        indexAppNameHashMap.put("2", "com.google.android.apps.maps");
-        indexAppNameHashMap.put("3", "com.google.android.youtube");
-        indexAppNameHashMap.put("4", "com.google.android.apps.docs");
-        indexAppNameHashMap.put("5", "com.google.android.music");
-        indexAppNameHashMap.put("6", "com.google.android.videos");
-        indexAppNameHashMap.put("7", "com.google.android.talk");
-        indexAppNameHashMap.put("8", "com.google.android.apps.photos");
-    }
+    private List<AppDetails> appList;
 
     public LaunchAppPlugin(Context context){
         this.context = context;
+        makeAppList();
     }
 
-    public void launchApp(String appIndex){
-        Intent launchAppIntent = context.getPackageManager().getLaunchIntentForPackage(indexAppNameHashMap.get(appIndex));
+    private void makeAppList() {
+        appList = new ArrayList<>();
+
+        PackageManager manager = context.getPackageManager();
+
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        List<ResolveInfo> availableActivities = manager.queryIntentActivities(intent, 0);
+
+        for (ResolveInfo ri : availableActivities) {
+            AppDetails app = new AppDetails((String) ri.loadLabel(manager), ri.activityInfo.packageName);
+            appList.add(app);
+            Log.d("LaunchAppPlugin", "Loading Apps");
+        }
+    }
+
+    public Object[] getAppArray(){
+        return appList.toArray();
+    }
+
+    public void launchApp(String appName){
+        Intent launchAppIntent = context.getPackageManager().getLaunchIntentForPackage(appName);
         context.startActivity(launchAppIntent);
     }
 }

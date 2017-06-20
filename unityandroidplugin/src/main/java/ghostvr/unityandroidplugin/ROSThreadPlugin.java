@@ -15,7 +15,6 @@ import java.net.Socket;
 
 public class ROSThreadPlugin implements Runnable {
     private ServerSocket serverSocket;
-    private boolean flag = true;
     private float[] dataArray;
     private float[] tempDataArray;
     String index;
@@ -28,8 +27,8 @@ public class ROSThreadPlugin implements Runnable {
         try {
             serverSocket = new ServerSocket(8888);
 
-            while (flag)
-                getClientData();
+            getClientData();
+            serverSocket.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,6 +67,8 @@ public class ROSThreadPlugin implements Runnable {
                 Log.d("Input", message + "\nTime elapsed: " + SystemClock.elapsedRealtimeNanos());
             }
         }
+
+        clientSocket.close();
     }
 
     public float[] getPointArray(){
