@@ -1,6 +1,13 @@
 package ghostvr.unityandroidplugin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+
+import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
 public class OverrideActivity extends UnityPlayerActivity {
@@ -13,12 +20,18 @@ public class OverrideActivity extends UnityPlayerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+        getWindow().setAttributes(params);
+
+        super.onCreate(savedInstanceState);
     }
 
     public void enableRotationSensorPlugin(){
         rotationSensorPlugin = new RotationSensorPlugin(this);
+        rotationSensorPlugin.registerListener();
         isRotationSensorEnabled = true;
     }
 
@@ -29,6 +42,12 @@ public class OverrideActivity extends UnityPlayerActivity {
 
     public void enableLaunchAppPlugin(){
         launchAppPlugin = new LaunchAppPlugin(this);
+    }
+
+    public void startDebugActivity(){
+        Log.d("OverrideActivity", "Starting Debug Activity");
+        Intent startDebugActivityIntent = new Intent(OverrideActivity.this, ghostvr.unityandroidplugin.DebugActivity.class);
+        startActivity(startDebugActivityIntent);
     }
 
     @Override
