@@ -8,11 +8,13 @@ import android.view.View;
 
 public class DebugActivity extends AppCompatActivity {
 
+    private String LOG_TAG = getClass().toString();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debug);
 
-        Log.d("DebugActivity", "Started DebugActivity");
+        Log.d(LOG_TAG, "Started DebugActivity");
     }
 }

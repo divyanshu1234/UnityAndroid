@@ -19,6 +19,8 @@ public class ROSThreadPlugin implements Runnable {
     private float[] tempDataArray;
     String index;
 
+    private String LOG_TAG = getClass().toString();
+
     @Override
     public void run() {
         dataArray = new float[7];
@@ -60,11 +62,11 @@ public class ROSThreadPlugin implements Runnable {
                     System.arraycopy(tempDataArray, 0, dataArray, 0, dataArray.length);
 
                 } catch (Exception e){
-                    Log.d("Input Exception", e.toString());
+                    Log.d(LOG_TAG, "Input Exception: " + e.toString());
                 }
 
-
-                Log.d("Input", message + "\nTime elapsed: " + SystemClock.elapsedRealtimeNanos());
+                if (DebugHelper.isRosLogEnabled)
+                    Log.d(LOG_TAG, "Input: " + message + "\nTime elapsed: " + SystemClock.elapsedRealtimeNanos());
             }
         }
 
@@ -73,14 +75,18 @@ public class ROSThreadPlugin implements Runnable {
 
     public float[] getPointArray(){
         float[] pointArray = new float[]{dataArray[0], dataArray[1], dataArray[2]};
-        Log.d("Output", "Index: " + index + "\nPoints: " + pointArray[0] + " " + pointArray[1] + " " + pointArray[2]);
+
+        if (DebugHelper.isRosLogEnabled)
+            Log.d(LOG_TAG, "Output: Index: " + index + "\nPoints: " + pointArray[0] + " " + pointArray[1] + " " + pointArray[2]);
 
         return pointArray;
     }
 
     public float[] getQuatArray(){
         float[] quatArray = new float[]{dataArray[3], dataArray[4], dataArray[5], dataArray[6]};
-        Log.d("Output", "Index: " + index + "\nQuat: " + quatArray[0] + " " + quatArray[1] + " " + quatArray[2] + " " + quatArray[3]);
+
+        if (DebugHelper.isRosLogEnabled)
+            Log.d(LOG_TAG, "Output: Index: " + index + "\nQuat: " + quatArray[0] + " " + quatArray[1] + " " + quatArray[2] + " " + quatArray[3]);
 
         return quatArray;
     }

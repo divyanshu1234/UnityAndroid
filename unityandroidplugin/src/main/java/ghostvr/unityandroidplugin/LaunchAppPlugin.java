@@ -34,9 +34,17 @@ public class LaunchAppPlugin {
         List<ResolveInfo> availableActivities = manager.queryIntentActivities(intent, 0);
 
         for (ResolveInfo ri : availableActivities) {
-            AppDetails app = new AppDetails((String) ri.loadLabel(manager), ri.activityInfo.packageName);
+            AppDetails app = new AppDetails(
+                    (String) ri.loadLabel(manager),
+                    ri.activityInfo.packageName,
+                    ri.loadIcon(manager)
+            );
+
             appList.add(app);
-            Log.d("LaunchAppPlugin", "Loading Apps");
+
+            if (DebugHelper.isLoadAppLogEnabled)
+                Log.d("LaunchAppPlugin", "Loading Apps");
+            getClass();
         }
     }
 

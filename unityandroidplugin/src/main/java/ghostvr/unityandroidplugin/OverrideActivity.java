@@ -2,12 +2,9 @@ package ghostvr.unityandroidplugin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 
-import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
 public class OverrideActivity extends UnityPlayerActivity {
@@ -17,6 +14,8 @@ public class OverrideActivity extends UnityPlayerActivity {
     ROSThreadPlugin rosThreadPlugin;
 
     boolean isRotationSensorEnabled = false;
+
+    private String LOG_TAG = getClass().toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class OverrideActivity extends UnityPlayerActivity {
     }
 
     public void startDebugActivity(){
-        Log.d("OverrideActivity", "Starting Debug Activity");
+        Log.d(LOG_TAG, "Starting Debug Activity");
         Intent startDebugActivityIntent = new Intent(OverrideActivity.this, ghostvr.unityandroidplugin.DebugActivity.class);
         startActivity(startDebugActivityIntent);
     }
