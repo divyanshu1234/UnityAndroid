@@ -2,8 +2,11 @@ package ghostvr.unityandroid;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import ghostvr.unityandroid.databinding.ActivityMainBinding;
@@ -28,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_DEBUG);
             }
         });
+
+        binding.button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(getClass().toString(), "Motion Event");
+                binding.button.callOnClick();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -36,5 +48,16 @@ public class MainActivity extends AppCompatActivity {
             binding.textView1.setText(data.getStringExtra("resultKey1"));
             binding.textView2.setText(data.getStringExtra("resultKey2"));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = downTime + 100;
+        float x = binding.button.getX() + binding.button.getWidth() / 2;
+        float y = binding.button.getX() + binding.button.getWidth() / 2;
+        MotionEvent event =  MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_UP, x, y, 0);
+
+        binding.button.dispatchTouchEvent(event);
     }
 }
