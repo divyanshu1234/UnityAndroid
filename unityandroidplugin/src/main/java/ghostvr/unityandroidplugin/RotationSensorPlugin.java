@@ -40,7 +40,7 @@ public class RotationSensorPlugin implements SensorEventListener {
             System.arraycopy(event.values, 0, rotationVector, 0, rotationVector.length);
         }
 
-        if (DebugHelper.isSensorLogEnabled)
+        if (DebugHelper.sensorLogEnabled())
             Log.d("Unity Sensor Plugin", String.valueOf(SystemClock.currentThreadTimeMillis()));
 
     }

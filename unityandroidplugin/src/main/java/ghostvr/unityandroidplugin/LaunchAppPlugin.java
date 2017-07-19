@@ -42,7 +42,7 @@ public class LaunchAppPlugin {
 
             appList.add(app);
 
-            if (DebugHelper.isLoadAppLogEnabled)
+            if (DebugHelper.loadAppLogEnabled())
                 Log.d("LaunchAppPlugin", "Loading Apps");
             getClass();
         }

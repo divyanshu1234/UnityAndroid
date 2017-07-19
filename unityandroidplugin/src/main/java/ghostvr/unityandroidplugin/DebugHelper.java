@@ -9,9 +9,9 @@ import android.util.Log;
 
 public class DebugHelper {
 
-    public static boolean isSensorLogEnabled = false;
-    public static boolean isRosLogEnabled = false;
-    public static boolean isLoadAppLogEnabled = false;
+    private static boolean isSensorLogEnabled = false;
+    private static boolean isRosLogEnabled = false;
+    private static boolean isLoadAppLogEnabled = false;
 
     public void enableSensorLog(String isEnabled) {
         if (isEnabled.equals("true"))
@@ -34,8 +34,20 @@ public class DebugHelper {
             isLoadAppLogEnabled = false;
     }
 
+    public static boolean sensorLogEnabled() {
+        return isSensorLogEnabled;
+    }
+
+    public static boolean rosLogEnabled() {
+        return isRosLogEnabled;
+    }
+
+    public static boolean loadAppLogEnabled() {
+        return isLoadAppLogEnabled;
+    }
+
     public static void setMessage(String message){
-        Log.d("Debug Helper", message);
+        Log.d("DebugHelper", message);
     }
 
     public static String getMessage(){

@@ -11,9 +11,9 @@ public class OverrideActivity extends UnityPlayerActivity {
 
     RotationSensorPlugin rotationSensorPlugin;
     LaunchAppPlugin launchAppPlugin;
-    ROSThreadPlugin rosThreadPlugin;
+    RosThreadPlugin rosThreadPlugin;
 
-    boolean isRotationSensorEnabled = false;
+    private boolean isRotationSensorEnabled = false;
 
     private String LOG_TAG = getClass().toString();
 
@@ -35,7 +35,7 @@ public class OverrideActivity extends UnityPlayerActivity {
     }
 
     public void enableRosThreadPlugin(){
-        rosThreadPlugin = new ROSThreadPlugin();
+        rosThreadPlugin = new RosThreadPlugin();
         new Thread(rosThreadPlugin).start();
     }
 

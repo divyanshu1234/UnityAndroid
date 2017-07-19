@@ -13,11 +13,11 @@ import java.net.Socket;
  * Created by Divyanshu on 6/9/17.
  */
 
-public class ROSThreadPlugin implements Runnable {
+public class RosThreadPlugin implements Runnable {
     private ServerSocket serverSocket;
     private float[] dataArray;
     private float[] tempDataArray;
-    String index;
+    private String index;
 
     private String LOG_TAG = getClass().toString();
 
@@ -65,7 +65,7 @@ public class ROSThreadPlugin implements Runnable {
                     Log.d(LOG_TAG, "Input Exception: " + e.toString());
                 }
 
-                if (DebugHelper.isRosLogEnabled)
+                if (DebugHelper.rosLogEnabled())
                     Log.d(LOG_TAG, "Input: " + message + "\nTime elapsed: " + SystemClock.elapsedRealtimeNanos());
             }
         }
@@ -73,19 +73,19 @@ public class ROSThreadPlugin implements Runnable {
         clientSocket.close();
     }
 
-    public float[] getPointArray(){
+    public float[] getPointMatrix(){
         float[] pointArray = new float[]{dataArray[0], dataArray[1], dataArray[2]};
 
-        if (DebugHelper.isRosLogEnabled)
+        if (DebugHelper.rosLogEnabled())
             Log.d(LOG_TAG, "Output: Index: " + index + "\nPoints: " + pointArray[0] + " " + pointArray[1] + " " + pointArray[2]);
 
         return pointArray;
     }
 
-    public float[] getQuatArray(){
+    public float[] getQuatMatrix(){
         float[] quatArray = new float[]{dataArray[3], dataArray[4], dataArray[5], dataArray[6]};
 
-        if (DebugHelper.isRosLogEnabled)
+        if (DebugHelper.rosLogEnabled())
             Log.d(LOG_TAG, "Output: Index: " + index + "\nQuat: " + quatArray[0] + " " + quatArray[1] + " " + quatArray[2] + " " + quatArray[3]);
 
         return quatArray;
