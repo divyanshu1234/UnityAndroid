@@ -45,12 +45,4 @@ public class DebugHelper {
     public static boolean loadAppLogEnabled() {
         return isLoadAppLogEnabled;
     }
-
-    public static void setMessage(String message){
-        Log.d("DebugHelper", message);
-    }
-
-    public static String getMessage(){
-        return "DebugHelper: Time Elapsed = " + SystemClock.elapsedRealtimeNanos();
-    }
 }

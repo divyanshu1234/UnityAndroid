@@ -23,6 +23,7 @@ public class RotationSensorPlugin implements SensorEventListener {
     private float[] orientationMatrix;
     private float[] quatMatrix;
 
+    private static final String LOG_TAG = RotationSensorPlugin.class.getSimpleName();
 
     public RotationSensorPlugin(UnityPlayerActivity unityPlayerActivity) {
         upa = unityPlayerActivity;
@@ -39,10 +40,6 @@ public class RotationSensorPlugin implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR){
             System.arraycopy(event.values, 0, rotationVector, 0, rotationVector.length);
         }
-
-        if (DebugHelper.sensorLogEnabled())
-            Log.d("Unity Sensor Plugin", String.valueOf(SystemClock.currentThreadTimeMillis()));
-
     }
 
     @Override

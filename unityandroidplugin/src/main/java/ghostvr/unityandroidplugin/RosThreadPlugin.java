@@ -19,7 +19,7 @@ public class RosThreadPlugin implements Runnable {
     private float[] tempDataArray;
     private String index;
 
-    private String LOG_TAG = getClass().toString();
+    private static final String LOG_TAG = RosThreadPlugin.class.getSimpleName();
 
     @Override
     public void run() {

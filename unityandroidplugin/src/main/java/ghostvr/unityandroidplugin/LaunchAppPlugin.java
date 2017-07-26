@@ -17,6 +17,7 @@ public class LaunchAppPlugin {
 
     private Context context;
     private List<AppDetails> appList;
+    private static final String LOG_TAG = LaunchAppPlugin.class.getSimpleName();
 
     public LaunchAppPlugin(Context context){
         this.context = context;
@@ -43,7 +44,7 @@ public class LaunchAppPlugin {
             appList.add(app);
 
             if (DebugHelper.loadAppLogEnabled())
-                Log.d("LaunchAppPlugin", "Loading Apps");
+                Log.d(LOG_TAG, "Loading Apps");
             getClass();
         }
     }
